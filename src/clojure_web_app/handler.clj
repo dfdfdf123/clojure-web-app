@@ -34,8 +34,29 @@
      (f/text-field "todo")
      (f/submit-button "Add"))))
 
+(defn add-todo [todo]
+  (when (not (clojure.string/blank? todo))
+    (add-todo! todo))
+  (redirect "/"))
+
+(defn show-todo [id]
+  (let [todo (todo-by-id id)]
+    (when todo
+      (page (str "TODO " id)
+        [:h2 (:text todo)]
+        (f/form-to [:delete (str "/" id)]
+          (anti-forgery-field)
+          (f/submit-button "Delete"))))))
+
+(defn delete-todo [id]
+  (remove-todo! id)
+  (redirect "/"))
+
 (defroutes app-routes
   (GET "/" [] (index))
+  (POST "/" [todo] (add-todo todo))
+  (GET "/:id" [id :<< as-int] (shoe-todo id))
+  (DELETE "/:id" [id :<< as-int] (delete-todo id))
   (route/not-found "Not Found"))
 
 (def app
