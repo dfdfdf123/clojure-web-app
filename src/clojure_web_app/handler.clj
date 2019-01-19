@@ -55,7 +55,7 @@
 (defroutes app-routes
   (GET "/" [] (index))
   (POST "/" [todo] (add-todo todo))
-  (GET "/:id" [id :<< as-int] (shoe-todo id))
+  (GET "/:id" [id :<< as-int] (show-todo id))
   (DELETE "/:id" [id :<< as-int] (delete-todo id))
   (route/not-found "Not Found"))
 

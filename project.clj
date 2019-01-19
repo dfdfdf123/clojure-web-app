@@ -9,6 +9,7 @@
                  [ring/ring-jetty-adapter "1.7.1"]
                  [hiccup "1.0.5"]]
   :plugins [[lein-ring "0.12.4"]]
+  :main clojure-web-app.core
   :ring {:handler clojure-web-app.handler/app}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
